@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You, Supervisor</title>
+  <meta name="description" content="A simple, elegant one‑page thank‑you website for an academic project supervisor." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@600;700&family=Quicksand:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1220;        /* deep navy */
+      --card: #0f172a;      /* slate-900 */
+      --ink: #e5e7eb;       /* gray-200 */
+      --muted: #a1a1aa;     /* zinc-400 */
+      --accent: #7c3aed;    /* violet-600 */
+      --accent2:#22d3ee;    /* cyan-400 */
+      --ring: rgba(124,58,237,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;overflow-x:hidden}
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(2deg); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    body{
+      font-family: 'Poppins', 'Quicksand', Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--ink);
+      background: radial-gradient(1200px 800px at 20% -10%, #1f1148 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 120% 10%, #063f56 0%, transparent 60%),
+                  var(--bg);
+      background-size: 200% 200%;
+      animation: gradientShift 15s ease infinite;
+      line-height:1.8;
+    }
+    .wrap{max-width:1000px;margin:0 auto;padding:32px}
+    header{
+      display:grid;gap:18px;place-items:center;text-align:center;padding:64px 0 32px;
+      animation: fadeInUp 1s ease-out;
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+      color:#c7d2fe;border-radius:999px;padding:8px 14px;font-weight:600;
+      animation: fadeInScale 0.8s ease-out, float 3s ease-in-out infinite;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .badge:hover{
+      background:rgba(255,255,255,.12);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(124,58,237,0.3);
+    }
+
+    /* Appreciation badges */
+    .appreciation-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 24px;
+      animation: fadeInUp 1.4s ease-out;
+    }
+
+    .badge-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(34,211,238,0.15));
+      border: 2px solid rgba(124,58,237,0.5);
+      color: #e5e7eb;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    .badge-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .badge-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .badge-btn:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 15px 35px rgba(124,58,237,0.5);
+      background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(34,211,238,0.3));
+      border-color: var(--accent2);
+    }
+
+    .badge-btn:active {
+      transform: scale(1.05) translateY(-1px);
+    }
+
+    .badge-btn:nth-child(1) {
+      animation: glow 3s ease-in-out infinite, bounce 2s ease-in-out infinite;
+      animation-delay: 0s, 0s;
+    }
+
+    .badge-btn:nth-child(2) {
+      animation: glow 3s ease-in-out infinite, heartbeat 2s ease-in-out infinite;
+      animation-delay: 0.5s, 0.3s;
+    }
+
+    .badge-btn:nth-child(3) {
+      animation: glow 3s ease-in-out infinite, bounce 2s ease-in-out infinite;
+      animation-delay: 1s, 0.6s;
+      background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(124,58,237,0.2));
+      border-color: rgba(245,158,11,0.6);
+    }
+
+    .badge-btn:nth-child(3):hover {
+      background: linear-gradient(135deg, rgba(245,158,11,0.4), rgba(124,58,237,0.4));
+      box-shadow: 0 15px 35px rgba(245,158,11,0.6);
+    }
+    .grad{
+      background: linear-gradient(90deg,var(--accent),var(--accent2), var(--accent));
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+      -webkit-background-clip: text; background-clip:text; color:transparent;
+    }
+    h1{
+      font-family:"Playfair Display", serif;font-weight:700;
+      font-size:clamp(32px,5vw,56px);margin:0;
+      animation: fadeInUp 1.2s ease-out;
+    }
+    p.lead{
+      max-width:780px;color:var(--muted);font-size:clamp(16px,2.6vw,19px);
+      animation: fadeInUp 1.4s ease-out;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);border-radius:24px;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(124,58,237,0.1), transparent);
+      transition: left 0.7s;
+    }
+    .card:hover::before {
+      left: 100%;
+    }
+    .card:hover{
+      transform: translateY(-5px);
+      box-shadow:0 20px 40px rgba(0,0,0,.4), 0 0 30px rgba(124,58,237,.2);
+      border-color: rgba(124,58,237,.3);
+    }
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media (min-width:900px){.grid{grid-template-columns:1.2fr .8fr}}
+
+    .letter{padding:28px; animation: slideInLeft 1s ease-out;}
+    .letter h2{margin:0 0 10px;font-size:28px;font-family:'Quicksand',sans-serif}
+    .letter .body{color:#e9e9ef;text-align:justify;text-justify:inter-word}
+    .sig{display:flex;align-items:center;gap:14px;margin-top:20px}
+    .sig .line{height:1px;background:#2a2f45;flex:1}
+
+    .side{padding:18px; animation: slideInRight 1s ease-out;}
+    .kv{
+      background:linear-gradient(120deg, rgba(124,58,237,.25), rgba(34,211,238,.2));
+      border:1px dashed rgba(124,58,237,.35);
+      border-radius:18px; padding:14px; text-align:center; color:#dbeafe
+    }
+    .kv img{width:100%;height:200px;object-fit:cover;border-radius:14px;opacity:.9}
+
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .chip{
+      padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:999px;
+      color:#d1fae5;background:rgba(16,185,129,.08);
+      transition: all 0.3s ease;
+      animation: fadeInScale 0.5s ease-out backwards;
+    }
+    .chip:nth-child(1){animation-delay: 0.1s}
+    .chip:nth-child(2){animation-delay: 0.2s}
+    .chip:nth-child(3){animation-delay: 0.3s}
+    .chip:nth-child(4){animation-delay: 0.4s}
+    .chip:hover{
+      transform: scale(1.1) rotate(-2deg);
+      background:rgba(16,185,129,.2);
+      box-shadow: 0 5px 15px rgba(16,185,129,.3);
+    }
+
+    /* Carousel container */
+    .gallery{
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+      border-radius: 16px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        height: 450px;
+      }
+    }
+
+    .carousel-wrapper {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+    }
+
+    .ph{
+      min-width: 100%;
+      height: 100%;
+      background:#111827;
+      border:1px solid #334155;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-size:16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ph img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease;
+    }
+
+    .ph:hover img{
+      transform: scale(1.05);
+    }
+
+    /* Carousel controls */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(124,58,237,0.8);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .carousel-btn:hover {
+      background: rgba(124,58,237,1);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 10px 30px rgba(124,58,237,0.5);
+    }
+
+    .carousel-btn:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    .carousel-btn.prev {
+      left: 20px;
+    }
+
+    .carousel-btn.next {
+      right: 20px;
+    }
+
+    /* Carousel indicators */
+    .carousel-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .indicator:hover {
+      background: rgba(255,255,255,0.7);
+      transform: scale(1.2);
+    }
+
+    .indicator.active {
+      background: var(--accent);
+      border-color: white;
+      width: 30px;
+      border-radius: 6px;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 5px rgba(124,58,237,0.3), 0 0 10px rgba(124,58,237,0.2); }
+      50% { box-shadow: 0 0 20px rgba(124,58,237,0.6), 0 0 30px rgba(124,58,237,0.4), 0 0 40px rgba(124,58,237,0.2); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.05); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.08); }
+    }
+
+    .footer{
+      display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:28px 0 10px;
+      animation: fadeInUp 1.6s ease-out;
+    }
+    .btn{
+      cursor:pointer;border:1px solid rgba(255,255,255,.14);background:#111827;
+      color:#e5e7eb;padding:10px 14px;border-radius:12px;font-weight:600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(124,58,237,0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .btn:hover::after {
+      width: 300px;
+      height: 300px;
+    }
+    .btn:hover{
+      outline:2px solid var(--ring);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(124,58,237,0.3);
+      background: rgba(124,58,237,0.1);
+    }
+    .btn:active{
+      transform: translateY(0);
+    }
+
+    /* Special emphasis buttons in header footer */
+    .footer .btn-emphasis {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(34,211,238,0.15));
+      border: 2px solid rgba(124,58,237,0.5);
+      font-weight: 700;
+      animation: glow 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    .footer .btn-emphasis:nth-child(1) {
+      animation: glow 3s ease-in-out infinite, bounce 2s ease-in-out infinite;
+      animation-delay: 0s, 0s;
+    }
+
+    .footer .btn-emphasis:nth-child(2) {
+      animation: glow 3s ease-in-out infinite, heartbeat 2s ease-in-out infinite;
+      animation-delay: 0.5s, 0.3s;
+    }
+
+    .footer .btn-emphasis:nth-child(3) {
+      animation: glow 3s ease-in-out infinite, bounce 2s ease-in-out infinite;
+      animation-delay: 1s, 0.6s;
+      background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(124,58,237,0.2));
+      border-color: rgba(245,158,11,0.6);
+    }
+
+    .footer .btn-emphasis:hover {
+      transform: scale(1.15) translateY(-5px);
+      box-shadow: 0 15px 35px rgba(124,58,237,0.5);
+      background: linear-gradient(135deg, rgba(124,58,237,0.4), rgba(34,211,238,0.4));
+    }
+
+    .footer .btn-emphasis:nth-child(3):hover {
+      background: linear-gradient(135deg, rgba(245,158,11,0.4), rgba(124,58,237,0.4));
+      box-shadow: 0 15px 35px rgba(245,158,11,0.6);
+    }
+
+    .hint{
+      color:#a1a1aa;font-size:14px;text-align:center;margin-top:4px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* editable look */
+    [contenteditable="true"]{
+      outline:2px dashed transparent;border-radius:8px;
+      transition: all 0.3s ease;
+    }
+    [contenteditable="true"]:hover{
+      outline-color:rgba(124,58,237,.35);
+      background: rgba(124,58,237,0.05);
+    }
+    [contenteditable="true"]:focus{
+      outline-color:var(--accent);
+      background: rgba(124,58,237,0.08);
+    }
+
+    /* confetti canvas */
+    #fx{position:fixed;inset:0;pointer-events:none;z-index:9999}
+
+    /* Celebrate button special effects */
+    #celebrate {
+      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(34,211,238,0.2));
+      border: 2px solid rgba(124,58,237,0.4);
+      font-size: 16px;
+      font-weight: 700;
+      position: relative;
+    }
+    #celebrate:hover {
+      animation: float 1s ease-in-out infinite;
+      background: linear-gradient(135deg, rgba(124,58,237,0.4), rgba(34,211,238,0.4));
+      border-color: var(--accent);
+    }
+
+    /* Particle background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(124,58,237,0.5);
+      border-radius: 50%;
+      animation: particleFloat 20s linear infinite;
+    }
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(100px) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div class="particles" id="particles"></div>
+
+<div class="wrap" style="position:relative;z-index:10">
+  <header>
+    <div class="badge">💜 A note of gratitude</div>
+    <h1 class="grad" id="title" contenteditable="true">Thank you, <span data-key="supervisor-name">Surv. Frank Onyeagoro</span></h1>
+    <p class="lead" id="lede" contenteditable="true">
+      Your guidance on my research about horizontal positional accuracy of Google Earth satellite images was invaluable. This page is a small way to say: I appreciate everything you've done, and I'm truly grateful.
+    </p>
+    <div class="appreciation-badges">
+      <button class="badge-btn" id="lecturer">👨‍🏫 Lecturer</button>
+      <button class="badge-btn" id="mentor">🌟 Mentor</button>
+      <button class="badge-btn" id="best-supervisor">🏆 Best Supervisor</button>
+    </div>
+  </header>
+
+  <section class="grid">
+    <article class="card letter">
+      <h2 contenteditable="true">A short letter</h2>
+      <div class="body" contenteditable="true">
+        Dear <span data-key="supervisor-name">Surv. Frank Onyeagoro</span>,<br><br>
+        Thank you for your unwavering support throughout my final year project on "Horizontal Positional Accuracy Assessment of Google Earth Satellite Images for Mapping." Your expertise in geodesy, remote sensing, and spatial accuracy analysis was instrumental in shaping my research methodology. From fieldwork and ground control point collection to statistical analysis and accuracy assessment, your guidance helped me navigate every challenge. I successfully defended my project two days ago, and I owe much of that success to your patient mentorship, constructive feedback, and dedication. You've prepared me not just for this defense, but for my career in geospatial science.<br><br>
+        With deep appreciation,<br>
+        <strong><span data-key="student-name">Chukwuma Miracle Mmesoma</span></strong>
+      </div>
+      <div class="sig">
+        <div class="line"></div>
+        <div style="white-space:nowrap">Signed on <span id="today"></span></div>
+        <div class="line"></div>
+      </div>
+    </article>
+
+    <aside class="card side">
+      <div class="kv">
+        <div style="font-weight:700;margin-bottom:8px">Highlights</div>
+        <div class="chips" id="chips">
+          <span class="chip" contenteditable="true">Download geotagged images</span>
+          <span class="chip" contenteditable="true">identified 43 ground control points</span>
+          <span class="chip" contenteditable="true">carry out RTK Gnss Survey</span>
+          <span class="chip" contenteditable="true">perform accuracy assessment</span>
+          <span class="chip" contenteditable="true">Ground control points</span>
+          <span class="chip" contenteditable="true">Accuracy assessment</span>
+          <span class="chip" contenteditable="true">Statistical analysis</span>
+          <span class="chip" contenteditable="true">Defense preparation</span>
+        </div>
+      </div>
+      <div style="margin-top:18px;text-align:center">
+        <button class="btn" id="celebrate" style="width:100%">🎉 Celebrate</button>
+      </div>
+    </aside>
+  </section>
+
+  <section class="card" style="padding:28px;margin-top:18px">
+    <h3 style="margin:0 0 14px;text-align:center;color:#cbd5e1;font-weight:600">Project Memories</h3>
+    <div class="gallery" id="gallery">
+      <div class="carousel-wrapper" id="carouselWrapper">
+        <!-- Images will be loaded dynamically -->
+      </div>
+      <button class="carousel-btn prev" id="prevBtn">‹</button>
+      <button class="carousel-btn next" id="nextBtn">›</button>
+      <div class="carousel-indicators" id="indicators">
+        <!-- Indicators will be added dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <section class="card" style="padding:22px;margin-top:18px">
+    <h3 style="margin:6px 0 8px;font-family:'Quicksand',sans-serif">A few words from me</h3>
+    <p contenteditable="true" id="note" style="text-align:justify;text-justify:inter-word">
+      Working with you changed how I approach geospatial research: start with rigorous methodology, validate positional accuracy systematically, and present findings with clarity. Your insights on RMSE calculations, error analysis, and satellite image interpretation were invaluable. Thank you for all the time you invested — the field supervision, data validation sessions, manuscript reviews, and thoughtful corrections. Your mentorship truly made a difference in my academic journey and has prepared me for a career in geospatial analysis.
+    </p>
+  </section>
+
+  <footer style="text-align:center;color:#a1a1aa;padding:30px 0 10px">
+    Built with ❤️ by <span data-key="student-name">Chukwuma Miracle Mmesoma</span>, a proud graduate of Surveying and Geoinformatics.
+  </footer>
+</div>
+
+<script>
+  // --- Simple state persistence for editable blocks ---
+  const STORAGE_KEY = 'thanks-site-v1';
+  const today = new Date();
+  document.getElementById('today').textContent = today.toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'});
+
+  const loadState = () => {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); } catch { return {}; }
+  };
+  const saveState = (data) => localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  const state = loadState();
+
+  // Map all contenteditable nodes
+  const editables = [...document.querySelectorAll('[contenteditable="true"]')];
+  editables.forEach((el, i) => {
+    const id = el.id || el.getAttribute('data-key') || `editable-${i}`;
+    el.dataset.persistId = id;
+    if (state[id]) el.innerHTML = state[id];
+    el.addEventListener('input', () => {
+      state[id] = el.innerHTML; saveState(state);
+      // Mirror named spans (supervisor/student) everywhere
+      if (el.matches('[data-key]')) {
+        const key = el.getAttribute('data-key');
+        document.querySelectorAll(`[data-key="${key}"]`).forEach(n => { if (n!==el) n.innerHTML = el.innerHTML; });
+      }
+    });
+  });
+
+  // Support name overrides via URL, e.g. ?supervisor=Dr%20Okorie&student=Chukwuma
+  const params = new URLSearchParams(location.search);
+  const sup = params.get('supervisor');
+  const stu = params.get('student');
+  if (sup){
+    document.querySelectorAll('[data-key="supervisor-name"]').forEach(n=>n.innerText=sup);
+  }
+  if (stu){
+    document.querySelectorAll('[data-key="student-name"]').forEach(n=>n.innerText=stu);
+  }
+
+  // --- Buttons ---
+  const appreciationMessages = {
+    lecturer: [
+      "👨‍🏫 An Amazing Lecturer!\n\nYour lectures on geodesy and satellite positioning were clear, engaging, and inspiring. You made complex concepts accessible!",
+      "👨‍🏫 Outstanding Educator!\n\nEvery class was a masterclass in geospatial science. Your teaching style made learning enjoyable and memorable!",
+      "👨‍🏫 Exceptional Teacher!\n\nYour passion for surveying and geoinformatics ignited our curiosity. Thank you for being such a dedicated lecturer!"
+    ],
+    mentor: [
+      "🌟 Incredible Mentor!\n\nBeyond academics, you guided me through challenges with wisdom and patience. Your mentorship shaped my professional growth!",
+      "🌟 Best Mentor Ever!\n\nYou believed in my potential even when I doubted myself. Your guidance transformed my approach to research. Thank you!",
+      "🌟 True Mentor!\n\nYour advice, support, and encouragement went far beyond the classroom. I'm grateful for your mentorship!"
+    ],
+    bestSupervisor: [
+      "🏆 The Best Supervisor!\n\nYour dedication to my project success was unmatched. From concept to defense, you were there every step. Thank you!",
+      "🏆 World-Class Supervisor!\n\nI couldn't have asked for a better supervisor! Your expertise, feedback, and support made all the difference!",
+      "🏆 Simply The Best!\n\nYour supervision excellence helped me achieve what I never thought possible. You're truly the best supervisor!"
+    ]
+  };
+
+  document.getElementById('lecturer').addEventListener('click', ()=>{
+    burst();
+    const msg = appreciationMessages.lecturer[Math.floor(Math.random() * appreciationMessages.lecturer.length)];
+    setTimeout(() => alert(msg), 500);
+  });
+
+  document.getElementById('mentor').addEventListener('click', ()=>{
+    burst();
+    const msg = appreciationMessages.mentor[Math.floor(Math.random() * appreciationMessages.mentor.length)];
+    setTimeout(() => alert(msg), 500);
+  });
+
+  document.getElementById('best-supervisor').addEventListener('click', ()=>{
+    burst();
+    const msg = appreciationMessages.bestSupervisor[Math.floor(Math.random() * appreciationMessages.bestSupervisor.length)];
+    setTimeout(() => alert(msg), 500);
+  });
+
+  // --- Minimal confetti ---
+  const canvas = document.getElementById('fx');
+  const ctx = canvas.getContext('2d');
+  let W,H; const resize=()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight};
+  addEventListener('resize',resize,{passive:true}); resize();
+  let flakes=[]; function burst(){
+    const colors=['#a78bfa','#22d3ee','#f472b6','#f59e0b','#34d399','#60a5fa'];
+    for(let i=0;i<160;i++){
+      flakes.push({
+        x: W/2, y: H/3, vx:(Math.random()-0.5)*8, vy:(Math.random()*-6)-3,
+        g: 0.15 + Math.random()*0.15, s: 3+Math.random()*4, c: colors[Math.floor(Math.random()*colors.length)], a:1, r: Math.random()*Math.PI
+      });
+    }
+  }
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    flakes.forEach(f=>{
+      f.vy += f.g; f.x += f.vx; f.y += f.vy; f.a -= 0.006; f.r += 0.1;
+    });
+    flakes = flakes.filter(f=> f.a>0 && f.y<H+20);
+    for(const f of flakes){
+      ctx.save(); ctx.globalAlpha = Math.max(f.a,0);
+      ctx.translate(f.x,f.y); ctx.rotate(f.r);
+      ctx.fillStyle=f.c; ctx.fillRect(-f.s/2,-f.s/2,f.s,f.s);
+      ctx.restore();
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+  document.getElementById('celebrate').addEventListener('click', () => {
+    burst();
+    // Show congratulatory message
+    const messages = [
+      "🎓 Congratulations on successfully defending your project!\n\nYour hard work in Surveying and Geoinformatics has paid off. You did it! 🎉",
+      "🌟 Well done, graduate!\n\nTwo days post-defense and you're already expressing gratitude. That's the mark of a true professional. Congratulations! 🎊",
+      "🎯 You nailed it!\n\nSuccessfully defending your final year project is a huge milestone. Your supervisor would be proud! 🏆",
+      "🚀 Congratulations on your defense!\n\nYour journey in Surveying and Geoinformatics has reached an important milestone. Onward to greater things! ✨",
+      "💫 Celebration time!\n\nYou've conquered your final year project defense! Your dedication and hard work brought you here. Well deserved! 🎈"
+    ];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    setTimeout(() => alert(randomMessage), 500);
+  });
+
+  // Focus accessibility: pressing / focuses the first editable
+  window.addEventListener('keydown', (e)=>{ if(e.key==='/' && !e.metaKey && !e.ctrlKey){ e.preventDefault(); editables[0]?.focus(); } });
+
+  // --- Particle background effect ---
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = 30;
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+
+    const colors = ['rgba(124,58,237,0.5)', 'rgba(34,211,238,0.5)', 'rgba(244,114,182,0.5)'];
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.width = particle.style.height = (2 + Math.random() * 3) + 'px';
+
+    particlesContainer.appendChild(particle);
+  }
+
+  // --- Smooth scroll reveal animations ---
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+      }
+    });
+  }, observerOptions);
+
+  // Observe all cards for scroll animations
+  document.querySelectorAll('.card').forEach(card => {
+    observer.observe(card);
+  });
+
+  // --- Enhanced celebrate button click effect ---
+  const celebrateBtn = document.getElementById('celebrate');
+  celebrateBtn.addEventListener('mouseenter', () => {
+    celebrateBtn.style.transform = 'scale(1.05)';
+  });
+  celebrateBtn.addEventListener('mouseleave', () => {
+    celebrateBtn.style.transform = 'scale(1)';
+  });
+
+  // --- Dynamic Carousel with Auto Image Loading ---
+  let currentSlide = 0;
+  const carouselWrapper = document.getElementById('carouselWrapper');
+  const indicatorsContainer = document.getElementById('indicators');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  // Auto-detect images from imges/ folder
+  // Try common naming patterns and extensions
+  const imagePaths = [
+    'imges/image.png',
+    'imges/img1.png',
+    'imges/img2.png',
+    'imges/img3.png'
+  ];
+
+  let slides = [];
+  let indicators = [];
+  let totalSlides = 0;
+  let loadedImages = [];
+
+  // Function to load images dynamically with smart detection
+  async function loadImages() {
+    const loadPromises = imagePaths.map((imagePath, index) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          loadedImages.push({ path: imagePath, index: index });
+          resolve(true);
+        };
+        img.onerror = () => {
+          resolve(false);
+        };
+        img.src = imagePath;
+      });
+    });
+
+    await Promise.all(loadPromises);
+
+    // Only add successfully loaded images
+    if (loadedImages.length === 0) {
+      // No images found, show placeholder
+      const slide = document.createElement('div');
+      slide.className = 'ph';
+      slide.innerHTML = '<div style="color: #64748b; text-align:center">No images found in imges/ folder<br><br>Add images to: imges/image.png, imges/img1.png, etc.</div>';
+      carouselWrapper.appendChild(slide);
+      totalSlides = 1;
+    } else {
+      // Add loaded images to carousel
+      loadedImages.forEach((imgData, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'ph';
+        slide.setAttribute('data-slot', idx);
+
+        const img = document.createElement('img');
+        img.src = imgData.path;
+        img.alt = `Project Memory ${idx + 1}`;
+
+        slide.appendChild(img);
+        carouselWrapper.appendChild(slide);
+
+        // Create indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'indicator';
+        if (idx === 0) indicator.classList.add('active');
+        indicator.setAttribute('data-index', idx);
+        indicator.addEventListener('click', () => goToSlide(idx));
+        indicatorsContainer.appendChild(indicator);
+      });
+
+      slides = document.querySelectorAll('.ph');
+      indicators = document.querySelectorAll('.indicator');
+      totalSlides = loadedImages.length;
+    }
+  }
+
+  // Load images on page load
+  loadImages();
+
+  function updateCarousel() {
+    const offset = -currentSlide * 100;
+    carouselWrapper.style.transform = `translateX(${offset}%)`;
+
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlide);
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  function goToSlide(index) {
+    currentSlide = index;
+    updateCarousel();
+  }
+
+  // Event listeners
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'ArrowRight') nextSlide();
+  });
+
+  // Touch/Swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  carouselWrapper.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  carouselWrapper.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    if (touchStartX - touchEndX > 50) nextSlide();
+    if (touchEndX - touchStartX > 50) prevSlide();
+  }
+
+  // Auto-play carousel - advances every 3 seconds
+  setInterval(nextSlide, 3000);
+</script>
+
+<!--
+HOW TO CUSTOMIZE
+1) Click any text to edit (title, letter, highlights, note). Changes auto‑save in your browser.
+2) Replace the three gray “Add image” boxes with real images by editing the HTML (search for class="ph").
+3) Quickly set names via URL:
+   https://your-domain.com?supervisor=Dr%20Okorie&student=Chukwuma
+4) Use the Print button to export a pretty PDF you can email or submit.
+5) To change colors, tweak CSS variables at the top of this file.
+
+Made with care so you can say “thank you” beautifully. 💜
+-->
+</body>
+</html>
